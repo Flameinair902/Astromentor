@@ -1,311 +1,512 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>abc.dds Tutoring</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #c9e4ca;
-      --primary: #3d2c2e;
-      --accent: #55828b;
-      --highlight: #3b6064;
-      --text: #364958;
-      --nav-bg: #55828b;
-      --nav-hover: #3b6064;
-      --card-bg: white;
-      --transition-speed: 0.3s;
-      scroll-behavior: smooth;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>abc.dds Tutoring - Multi-Page Single File</title>
+<style>
+  /* Colours */
+  :root {
+    --color1: #edcb96; /* light cream */
+    --color2: #f7c4a5; /* peach */
+    --color3: #9e7682; /* muted mauve */
+    --color4: #605770; /* dusky purple */
+    --color5: #4d4861; /* deep purple */
+    --text-color: var(--color5);
+    --bg-color: var(--color1);
+    --nav-bg: var(--color4);
+    --nav-text: var(--color1);
+    --btn-bg: var(--color2);
+    --btn-hover-bg: var(--color3);
+  }
 
-    * {
-      box-sizing: border-box;
-    }
+  * {
+    box-sizing: border-box;
+  }
 
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      min-height: 100vh;
-    }
+  body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+  }
 
-    nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background-color: var(--nav-bg);
-      color: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      z-index: 1000;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    }
+  nav {
+    background-color: var(--nav-bg);
+    color: var(--nav-text);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
 
-    nav .logo {
-      font-weight: 700;
-      font-size: 1.5rem;
-      user-select: none;
-    }
+  nav .logo {
+    font-weight: 700;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
 
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 1.5rem;
-      margin: 0;
-      padding: 0;
-    }
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+  }
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
-      padding: 0.25rem 0.5rem;
-      border-radius: 4px;
-      transition: background-color var(--transition-speed);
-    }
+  nav ul li a {
+    text-decoration: none;
+    color: var(--nav-text);
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+    border-radius: 5px;
+  }
 
-    nav a:hover,
-    nav a:focus {
-      background-color: var(--nav-hover);
-      outline: none;
-    }
+  nav ul li a[aria-current="page"],
+  nav ul li a:hover {
+    background-color: var(--btn-bg);
+    color: var(--color5);
+  }
 
-    header {
-      background-color: var(--primary);
-      color: white;
-      text-align: center;
-      padding: 8rem 2rem 6rem;
-      margin-top: 60px; /* space for fixed nav */
-    }
+  header {
+    text-align: center;
+    padding: 2rem 1rem 1rem;
+    background-color: var(--color2);
+    color: var(--color5);
+  }
 
-    header h1 {
-      font-size: 3.5rem;
-      margin-bottom: 1rem;
-      font-weight: 700;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-    }
+  main {
+    max-width: 900px;
+    margin: 1rem auto 3rem;
+    padding: 0 1rem;
+  }
 
-    header p {
-      font-size: 1.4rem;
-      margin-bottom: 2.5rem;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-      font-weight: 500;
-    }
+  h1, h2 {
+    margin-top: 0;
+  }
 
-    .btn-cta {
-      background-color: var(--accent);
-      color: white;
-      font-weight: 700;
-      padding: 1rem 3rem;
-      font-size: 1.25rem;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      transition: background-color var(--transition-speed);
-      text-decoration: none;
-      display: inline-block;
-    }
+  section {
+    margin-bottom: 2rem;
+  }
 
-    .btn-cta:hover,
-    .btn-cta:focus {
-      background-color: var(--highlight);
-      outline: none;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.25);
-    }
+  ul {
+    padding-left: 1.25rem;
+  }
 
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 3rem 2rem;
-    }
+  /* Cards grid for tutors */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    gap: 1rem;
+  }
 
-    section {
-      margin-bottom: 5rem;
-    }
+  .card {
+    background: var(--color2);
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 0 6px rgba(0,0,0,0.1);
+  }
 
-    section h2 {
-      font-size: 2.75rem;
-      margin-bottom: 1.5rem;
-      color: var(--primary);
-      border-bottom: 4px solid var(--accent);
-      padding-bottom: 0.5rem;
-      max-width: max-content;
-    }
+  .card p {
+    margin: 0.25rem 0;
+  }
 
-    .card {
-      background-color: var(--card-bg);
-      padding: 1.5rem 2rem;
-      margin-bottom: 1.75rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.1);
-      border-left: 8px solid var(--accent);
-      transition: box-shadow var(--transition-speed);
-    }
+  form label {
+    display: block;
+    margin: 0.5rem 0 0.25rem;
+    font-weight: 600;
+  }
 
-    .card:hover {
-      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-    }
+  form select, form input {
+    width: 100%;
+    padding: 0.6rem;
+    border-radius: 6px;
+    border: 1px solid var(--color3);
+    font-size: 1rem;
+  }
 
-    /* Responsive Grid for subjects and tutors */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
-      gap: 2rem;
-    }
+  form button {
+    margin-top: 1rem;
+    background-color: var(--btn-bg);
+    border: none;
+    padding: 0.75rem;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--color5);
+    width: 100%;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
+  }
 
-    /* Smaller text for card subtitles */
-    .card small {
-      display: block;
-      margin-top: 0.5rem;
-      color: var(--highlight);
-      font-weight: 600;
-    }
+  form button:hover {
+    background-color: var(--btn-hover-bg);
+    color: var(--color1);
+  }
 
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 3rem 2rem;
-      background-color: var(--primary);
-      color: white;
-      font-size: 0.9rem;
-      user-select: none;
-    }
+  footer {
+    text-align: center;
+    padding: 1.5rem 1rem;
+    background-color: var(--nav-bg);
+    color: var(--nav-text);
+    font-size: 0.9rem;
+    position: sticky;
+    bottom: 0;
+  }
 
-    /* Scroll offset for anchor links */
-    [id] {
-      scroll-margin-top: 75px;
-    }
+  /* Hide all page sections by default */
+  main > section {
+    display: none;
+  }
 
-    /* Media Queries */
-    @media (max-width: 600px) {
-      nav {
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-
-      header h1 {
-        font-size: 2.5rem;
-      }
-
-      header p {
-        font-size: 1.1rem;
-      }
-    }
-  </style>
+  /* Show active page section */
+  main > section.active {
+    display: block;
+  }
+</style>
 </head>
 <body>
-  <nav>
-    <div class="logo" tabindex="0">abc.dds</div>
-    <ul>
-      <li><a href="#home" tabindex="0">Home</a></li>
-      <li><a href="#about" tabindex="0">About</a></li>
-      <li><a href="#subjects" tabindex="0">Courses</a></li>
-      <li><a href="#tutors" tabindex="0">Tutors</a></li>
-      <li><a href="#booking" tabindex="0">Booking</a></li>
-      <li><a href="#platform" tabindex="0">Platform</a></li>
-      <li><a href="#dashboard" tabindex="0">Dashboard</a></li>
-    </ul>
-  </nav>
 
-  <header id="home" role="banner">
-    <h1>Unlock Your Potential with abc.dds Tutoring</h1>
-    <p>Expert tutoring tailored to your needs. Book a session now and start your journey to success!</p>
-    <a href="#booking" class="btn-cta" role="button" tabindex="0">Book a Session Now</a>
-  </header>
+<nav>
+  <div class="logo" tabindex="0" onclick="showPage('home')">abc.dds</div>
+  <ul>
+    <li><a href="#" data-page="home" aria-current="page">Home</a></li>
+    <li><a href="#" data-page="about">About</a></li>
+    <li><a href="#" data-page="subjects">Courses</a></li>
+    <li><a href="#" data-page="tutors">Tutors</a></li>
+    <li><a href="#" data-page="booking">Booking</a></li>
+    <li><a href="#" data-page="platform">Platform</a></li>
+    <li><a href="#" data-page="dashboard">Dashboard</a></li>
+  </ul>
+</nav>
 
-  <main>
-    <section id="about" role="region" aria-labelledby="about-title">
-      <h2 id="about-title">About Us</h2>
-      <div class="card">
-        Our mission is to provide world-class tutoring that inspires confidence and academic achievement.
-      </div>
-      <div class="card">
-        Our tutors are highly qualified professionals, committed to personalised learning and student success.
-      </div>
-      <div class="card">
-        Founded by passionate educators, abc.dds offers empathetic, engaging, and effective teaching.
-      </div>
+<header>
+  <h1 id="page-title">Welcome to abc.dds Tutoring</h1>
+</header>
+
+<main>
+
+  <!-- Home Page -->
+  <section id="home" class="active" tabindex="0">
+    <h2>Personalized Tutoring for Your Success</h2>
+    <p>Unlock your academic potential with expert tutors and tailored learning plans.</p>
+    <button onclick="showPage('booking')" style="font-size:1.2rem; padding:0.8rem 1.2rem; border:none; border-radius:8px; background: var(--btn-bg); color: var(--color5); cursor:pointer;">
+      Book a Session Now
+    </button>
+
+    <section style="margin-top: 2rem;">
+      <h3>Why Choose abc.dds?</h3>
+      <ul>
+        <li>Personalized learning plans for every student</li>
+        <li>Experienced and qualified tutors</li>
+        <li>Flexible scheduling to suit your needs</li>
+        <li>Interactive online platform</li>
+      </ul>
     </section>
 
-    <section id="subjects" role="region" aria-labelledby="subjects-title">
-      <h2 id="subjects-title">Subjects & Courses</h2>
-      <div class="grid">
-        <div class="card">Math, Science, English, Languages, History, Geography</div>
-        <div class="card">Test Prep: 11+, GCSE, A-level, SAT, ACT, GRE</div>
-        <div class="card">Skill-based: Programming, Public Speaking, Writing</div>
-      </div>
+    <section>
+      <h3>Popular Courses</h3>
+      <ul>
+        <li>Mathematics (KS1 to GCSE and beyond)</li>
+        <li>Science (Biology, Chemistry, Physics)</li>
+        <li>English Language & Literature</li>
+        <li>Programming & Public Speaking</li>
+      </ul>
     </section>
 
-    <section id="tutors" role="region" aria-labelledby="tutors-title">
-      <h2 id="tutors-title">Meet Our Tutors</h2>
-      <div class="grid">
-        <div class="card">
-          <strong>Jane Smith</strong><br />
-          MSc Mathematics, 10+ years teaching experience.<br />
-          <small>Student rating: 4.9/5</small>
-        </div>
-        <div class="card">
-          <strong>David Johnson</strong><br />
-          MA English Literature, expert in GCSE and A-Level.<br />
-          <small>Student rating: 4.8/5</small>
-        </div>
-        <div class="card">
-          <strong>Emily Chen</strong><br />
-          BSc Biology, specialised in Science and exam prep.<br />
-          <small>Student rating: 4.95/5</small>
-        </div>
-      </div>
+    <section>
+      <h3>Success Stories</h3>
+      <blockquote>"Thanks to abc.dds, I improved my grades and gained confidence!" – Student A</blockquote>
+      <blockquote>"The tutors are patient and really understand my learning style." – Student B</blockquote>
+    </section>
+  </section>
+
+  <!-- About Page -->
+  <section id="about" tabindex="0">
+    <h2>About abc.dds Tutoring</h2>
+    <section>
+      <h3>Our Mission & Vision</h3>
+      <p>At abc.dds, our mission is to empower every student to reach their academic potential through personalized, compassionate tutoring.</p>
+      <p>We envision a world where quality education is accessible and tailored to each learner's unique needs and goals.</p>
     </section>
 
-    <section id="booking" role="region" aria-labelledby="booking-title">
-      <h2 id="booking-title">Booking & Scheduling</h2>
-      <div class="card">
-        Easy-to-use online calendar to book your sessions at your convenience.
-      </div>
-      <div class="card">
-        Automated email and SMS reminders so you never miss a session.
-      </div>
-      <div class="card">
-        Secure payment gateway supporting multiple payment options.
-      </div>
+    <section>
+      <h3>Our Tutors</h3>
+      <p>Our tutors are highly qualified professionals with expertise in their subjects and experience in teaching diverse learning styles.</p>
+      <ul>
+        <li>Bachelor's and Master’s degrees in Education and relevant fields</li>
+        <li>Backgrounds in classroom teaching and private tutoring</li>
+        <li>Passionate about fostering confidence and skills in students</li>
+      </ul>
     </section>
 
-    <section id="platform" role="region" aria-labelledby="platform-title">
-      <h2 id="platform-title">Online Tutoring Platform</h2>
-      <div class="card">
-        Live interactive video sessions powered by Zoom or Google Meet.
-      </div>
-      <div class="card">
-        Collaborative whiteboards and screen sharing for effective learning.
-      </div>
-      <div class="card">
-        Built-in chat and file sharing to keep communication seamless.
-      </div>
+    <section>
+      <h3>Company Background</h3>
+      <p>Founded in 2020, abc.dds has grown rapidly by focusing on student success and tailored support. We take pride in our reputation for excellence and results.</p>
     </section>
 
-    <section id="dashboard" role="region" aria-labelledby="dashboard-title">
-      <h2 id="dashboard-title">Student Dashboard</h2>
-      <div class="card">
-        Track your upcoming and past sessions at a glance.
-      </div>
-      <div class="card">
-        Access downloadable notes and personalized resources from your tutors.
-      </div>
+    <section>
+      <h3>Our Teaching Philosophy</h3>
+      <p>We believe learning is most effective when it is engaging, personalized, and supportive. Our tutors focus on building understanding, not just memorization.</p>
     </section>
-  </main>
+  </section>
 
-  <footer role="contentinfo">
-    &copy; 2025 abc.dds Tutoring. All rights reserved.
-  </footer>
+  <!-- Subjects Page -->
+  <section id="subjects" tabindex="0">
+    <h2>Courses & Subjects We Offer</h2>
+
+    <section>
+      <h3>Academic Subjects</h3>
+      <ul>
+        <li>Mathematics (KS1 to GCSE and beyond)</li>
+        <li>Science: Biology, Chemistry, Physics</li>
+        <li>English Language & Literature</li>
+        <li>History & Geography</li>
+        <li>Languages: French, Spanish, German</li>
+      </ul>
+    </section>
+
+    <section>
+      <h3>Test Preparation</h3>
+      <ul>
+        <li>11+ Entrance Exams</li>
+        <li>GCSE & A-Level Revision</li>
+        <li>SAT, ACT, GRE Prep (For international students)</li>
+      </ul>
+    </section>
+
+    <section>
+      <h3>Skill-Based Courses</h3>
+      <ul>
+        <li>Programming & Coding (Python, JavaScript, etc.)</li>
+        <li>Public Speaking & Communication</li>
+        <li>Study Skills & Time Management</li>
+        <li>Creative Writing Workshops</li>
+      </ul>
+    </section>
+
+    <section>
+      <h3>Age & Grade Levels</h3>
+      <ul>
+        <li>Primary (KS1 & KS2)</li>
+        <li>Secondary (KS3)</li>
+        <li>GCSE Level</li>
+        <li>Post-16 & Adult Learners</li>
+      </ul>
+    </section>
+  </section>
+
+  <!-- Tutors Page -->
+  <section id="tutors" tabindex="0">
+    <h2>Meet Our Tutors</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Emma Smith</h3>
+        <p><strong>Qualifications:</strong> BSc Mathematics, PGCE</p>
+        <p><strong>Experience:</strong> 5 years teaching KS3 to GCSE</p>
+        <p><strong>Rating:</strong> ⭐⭐⭐⭐⭐</p>
+        <p><strong>Availability:</strong> Weekdays 4pm - 7pm</p>
+      </div>
+      <div class="card">
+        <h3>James Lee</h3>
+        <p><strong>Qualifications:</strong> BA English Literature, MA Education</p>
+        <p><strong>Experience:</strong> 7 years tutoring GCSE & A-Level</p>
+        <p><strong>Rating:</strong> ⭐⭐⭐⭐⭐</p>
+        <p><strong>Availability:</strong> Evenings & weekends</p>
+      </div>
+      <div class="card">
+        <h3>Sophia Patel</h3>
+        <p><strong>Qualifications:</strong> BSc Computer Science</p>
+        <p><strong>Experience:</strong> 4 years programming and STEM tutoring</p>
+        <p><strong>Rating:</strong> ⭐⭐⭐⭐☆</p>
+        <p><strong>Availability:</strong> Flexible scheduling</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking Page -->
+  <section id="booking" tabindex="0">
+    <h2>Book a Tutoring Session</h2>
+    <form id="booking-form">
+      <label for="subject">Select Subject:</label>
+      <select id="subject" name="subject" required>
+        <option value="" disabled selected>Choose a subject</option>
+        <option>Mathematics</option>
+        <option>Science</option>
+        <option>English</option>
+        <option>Programming</option>
+        <option>Public Speaking</option>
+      </select>
+
+      <label for="tutor">Preferred Tutor (optional):</label>
+      <select id="tutor" name="tutor">
+        <option value="" disabled selected>Choose a tutor</option>
+        <option>Emma Smith</option>
+        <option>James Lee</option>
+        <option>Sophia Patel</option>
+      </select>
+
+      <label for="date">Select Date & Time:</label>
+      <input type="datetime-local" id="date" name="date" required />
+
+      <button type="submit">Book Now</button>
+    </form>
+    <p id="booking-message" style="margin-top:1rem; font-weight:600;"></p>
+  </section>
+
+  <!-- Platform Page -->
+  <section id="platform" tabindex="0">
+    <h2>Our Online Tutoring Platform</h2>
+    <section>
+      <h3>Features</h3>
+      <ul>
+        <li>Video Conferencing with Zoom & Google Meet integration</li>
+        <li>Interactive Whiteboard for real-time problem solving</li>
+        <li>Screen Sharing and File Uploads</li>
+        <li>Chat & Messaging during sessions</li>
+      </ul>
+    </section>
+
+    <section>
+      <h3>Accessing Your Sessions</h3>
+      <p>After booking, you will receive a secure link to join your session. Our platform supports all modern browsers and devices.</p>
+    </section>
+  </section>
+
+  <!-- Dashboard Page -->
+  <section id="dashboard" tabindex="0">
+    <h2>Your Student Dashboard</h2>
+
+    <section>
+      <h3>Upcoming Sessions</h3>
+      <ul>
+        <li>Mathematics with Emma Smith - June 10, 2025 at 3:00 PM</li>
+        <li>English Literature with James Lee - June 15, 2025 at 4:00 PM</li>
+      </ul>
+    </section>
+
+    <section>
+      <h3>Past Sessions</h3>
+      <ul>
+        <li>Biology with Sophia Patel - May 28, 2025</li>
+        <li>Public Speaking with James Lee - May 20, 2025</li>
+      </ul>
+    </section>
+
+    <section>
+      <h3>Learning Progress</h3>
+      <p>Your tutors will update this section regularly with feedback and notes.</p>
+    </section>
+
+    <section>
+      <h3>Notes & Resources</h3>
+      <p>Download worksheets, session recordings, and additional materials here.</p>
+    </section>
+  </section>
+
+</main>
+
+<footer>
+  &copy; 2025 abc.dds Tutoring. All rights reserved.
+</footer>
+
+<script>
+  // Page navigation logic
+  const navLinks = document.querySelectorAll('nav ul li a');
+  const sections = document.querySelectorAll('main > section');
+  const pageTitle = document.getElementById('page-title');
+
+  function showPage(pageId) {
+    sections.forEach(sec => {
+      if (sec.id === pageId) {
+        sec.classList.add('active');
+        sec.focus();
+      } else {
+        sec.classList.remove('active');
+      }
+    });
+
+    navLinks.forEach(link => {
+      if (link.dataset.page === pageId) {
+        link.setAttribute('aria-current', 'page');
+      } else {
+        link.removeAttribute('aria-current');
+      }
+    });
+
+    // Update header title
+    let titles = {
+      home: 'Welcome to abc.dds Tutoring',
+      about: 'About abc.dds Tutoring',
+      subjects: 'Courses & Subjects We Offer',
+      tutors: 'Meet Our Tutors',
+      booking: 'Book a Tutoring Session',
+      platform: 'Our Online Tutoring Platform',
+      dashboard: 'Your Student Dashboard'
+    };
+
+    pageTitle.textContent = titles[pageId] || 'abc.dds Tutoring';
+  }
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const page = link.dataset.page;
+      if (page) {
+        showPage(page);
+        window.history.pushState({page: page}, '', `#${page}`);
+      }
+    });
+  });
+
+  // Support browser navigation with back/forward buttons
+  window.addEventListener('popstate', event => {
+    if (event.state && event.state.page) {
+      showPage(event.state.page);
+    } else {
+      showPage('home');
+    }
+  });
+
+  // Load initial page based on URL hash
+  function loadFromHash() {
+    const hashPage = window.location.hash.substring(1);
+    if (hashPage && document.getElementById(hashPage)) {
+      showPage(hashPage);
+    } else {
+      showPage('home');
+    }
+  }
+
+  loadFromHash();
+
+  // Booking form submission simulation
+  const bookingForm = document.getElementById('booking-form');
+  const bookingMessage = document.getElementById('booking-message');
+
+  bookingForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const subject = bookingForm.subject.value;
+    const tutor = bookingForm.tutor.value || 'No preference';
+    const date = bookingForm.date.value;
+
+    if (!subject || !date) {
+      bookingMessage.textContent = 'Please fill in all required fields.';
+      bookingMessage.style.color = 'red';
+      return;
+    }
+
+    bookingMessage.style.color = 'green';
+    bookingMessage.textContent = `Thank you! Your session for ${subject} with ${tutor} is booked on ${new Date(date).toLocaleString()}.`;
+
+    bookingForm.reset();
+  });
+</script>
+
 </body>
 </html>
+

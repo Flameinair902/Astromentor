@@ -1,130 +1,311 @@
-# Re-defining the color scheme after reset
-color_scheme = {
-    "background": "#c9e4ca",     # light mint
-    "primary": "#3d2c2e",        # deep maroon
-    "accent": "#55828b",         # steel blue
-    "highlight": "#3b6064",      # slate
-    "text": "#364958"            # dark grey-blue
-}
 
-# Generate base HTML for the tutoring website structure
-html_template = f"""
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>abc.dds Tutoring</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
   <style>
-    :root {{
-      --bg: {color_scheme['background']};
-      --primary: {color_scheme['primary']};
-      --accent: {color_scheme['accent']};
-      --highlight: {color_scheme['highlight']};
-      --text: {color_scheme['text']};
-    }}
-    body {{
+    :root {
+      --bg: #c9e4ca;
+      --primary: #3d2c2e;
+      --accent: #55828b;
+      --highlight: #3b6064;
+      --text: #364958;
+      --nav-bg: #55828b;
+      --nav-hover: #3b6064;
+      --card-bg: white;
+      --transition-speed: 0.3s;
+      scroll-behavior: smooth;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
       margin: 0;
       font-family: 'Inter', sans-serif;
-      background: var(--bg);
+      background-color: var(--bg);
       color: var(--text);
-    }}
-    header, section {{
-      padding: 4rem 2rem;
-    }}
-    header {{
-      background: var(--primary);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: var(--nav-bg);
       color: white;
-      text-align: center;
-    }}
-    h1, h2 {{
-      color: var(--primary);
-    }}
-    nav {{
-      background: var(--accent);
-      padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: white;
-    }}
-    nav a {{
+      padding: 1rem 2rem;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    nav .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      user-select: none;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav a {
       color: white;
       text-decoration: none;
-      margin-left: 1rem;
-    }}
-    .card {{
-      background: white;
-      border-left: 5px solid var(--accent);
-      padding: 1rem;
+      font-weight: 600;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      transition: background-color var(--transition-speed);
+    }
+
+    nav a:hover,
+    nav a:focus {
+      background-color: var(--nav-hover);
+      outline: none;
+    }
+
+    header {
+      background-color: var(--primary);
+      color: white;
+      text-align: center;
+      padding: 8rem 2rem 6rem;
+      margin-top: 60px; /* space for fixed nav */
+    }
+
+    header h1 {
+      font-size: 3.5rem;
       margin-bottom: 1rem;
-      border-radius: 8px;
-    }}
+      font-weight: 700;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    }
+
+    header p {
+      font-size: 1.4rem;
+      margin-bottom: 2.5rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      font-weight: 500;
+    }
+
+    .btn-cta {
+      background-color: var(--accent);
+      color: white;
+      font-weight: 700;
+      padding: 1rem 3rem;
+      font-size: 1.25rem;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: background-color var(--transition-speed);
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-cta:hover,
+    .btn-cta:focus {
+      background-color: var(--highlight);
+      outline: none;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+
+    section {
+      margin-bottom: 5rem;
+    }
+
+    section h2 {
+      font-size: 2.75rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+      border-bottom: 4px solid var(--accent);
+      padding-bottom: 0.5rem;
+      max-width: max-content;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      padding: 1.5rem 2rem;
+      margin-bottom: 1.75rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+      border-left: 8px solid var(--accent);
+      transition: box-shadow var(--transition-speed);
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    }
+
+    /* Responsive Grid for subjects and tutors */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+      gap: 2rem;
+    }
+
+    /* Smaller text for card subtitles */
+    .card small {
+      display: block;
+      margin-top: 0.5rem;
+      color: var(--highlight);
+      font-weight: 600;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      background-color: var(--primary);
+      color: white;
+      font-size: 0.9rem;
+      user-select: none;
+    }
+
+    /* Scroll offset for anchor links */
+    [id] {
+      scroll-margin-top: 75px;
+    }
+
+    /* Media Queries */
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      header h1 {
+        font-size: 2.5rem;
+      }
+
+      header p {
+        font-size: 1.1rem;
+      }
+    }
   </style>
 </head>
 <body>
-
   <nav>
-    <div><strong>abc.dds</strong></div>
-    <div>
-      <a href="#home">Home</a>
-      <a href="#about">About</a>
-      <a href="#subjects">Courses</a>
-      <a href="#tutors">Tutors</a>
-      <a href="#booking">Booking</a>
-      <a href="#platform">Platform</a>
-      <a href="#dashboard">Dashboard</a>
-    </div>
+    <div class="logo" tabindex="0">abc.dds</div>
+    <ul>
+      <li><a href="#home" tabindex="0">Home</a></li>
+      <li><a href="#about" tabindex="0">About</a></li>
+      <li><a href="#subjects" tabindex="0">Courses</a></li>
+      <li><a href="#tutors" tabindex="0">Tutors</a></li>
+      <li><a href="#booking" tabindex="0">Booking</a></li>
+      <li><a href="#platform" tabindex="0">Platform</a></li>
+      <li><a href="#dashboard" tabindex="0">Dashboard</a></li>
+    </ul>
   </nav>
 
-  <header id="home">
-    <h1>Unlock Your Potential</h1>
-    <p>Expert tutoring tailored to your success. Book a session today!</p>
+  <header id="home" role="banner">
+    <h1>Unlock Your Potential with abc.dds Tutoring</h1>
+    <p>Expert tutoring tailored to your needs. Book a session now and start your journey to success!</p>
+    <a href="#booking" class="btn-cta" role="button" tabindex="0">Book a Session Now</a>
   </header>
 
-  <section id="about">
-    <h2>About Us</h2>
-    <div class="card">Our mission is to provide world-class tutoring that inspires confidence and academic achievement.</div>
-    <div class="card">Our tutors are experienced, qualified professionals dedicated to student success.</div>
-    <div class="card">Founded by educators, abc.dds focuses on personalised, empathetic, and engaging learning.</div>
-  </section>
+  <main>
+    <section id="about" role="region" aria-labelledby="about-title">
+      <h2 id="about-title">About Us</h2>
+      <div class="card">
+        Our mission is to provide world-class tutoring that inspires confidence and academic achievement.
+      </div>
+      <div class="card">
+        Our tutors are highly qualified professionals, committed to personalised learning and student success.
+      </div>
+      <div class="card">
+        Founded by passionate educators, abc.dds offers empathetic, engaging, and effective teaching.
+      </div>
+    </section>
 
-  <section id="subjects">
-    <h2>Subjects & Courses</h2>
-    <div class="card">Math, Science, English, Languages, History, Geography</div>
-    <div class="card">Test Prep: 11+, GCSE, A-level, SAT, ACT, GRE</div>
-    <div class="card">Skill-based: Programming, Public Speaking, Writing</div>
-  </section>
+    <section id="subjects" role="region" aria-labelledby="subjects-title">
+      <h2 id="subjects-title">Subjects & Courses</h2>
+      <div class="grid">
+        <div class="card">Math, Science, English, Languages, History, Geography</div>
+        <div class="card">Test Prep: 11+, GCSE, A-level, SAT, ACT, GRE</div>
+        <div class="card">Skill-based: Programming, Public Speaking, Writing</div>
+      </div>
+    </section>
 
-  <section id="tutors">
-    <h2>Meet Our Tutors</h2>
-    <div class="card">Tutor profiles, qualifications, student ratings, and availability</div>
-  </section>
+    <section id="tutors" role="region" aria-labelledby="tutors-title">
+      <h2 id="tutors-title">Meet Our Tutors</h2>
+      <div class="grid">
+        <div class="card">
+          <strong>Jane Smith</strong><br />
+          MSc Mathematics, 10+ years teaching experience.<br />
+          <small>Student rating: 4.9/5</small>
+        </div>
+        <div class="card">
+          <strong>David Johnson</strong><br />
+          MA English Literature, expert in GCSE and A-Level.<br />
+          <small>Student rating: 4.8/5</small>
+        </div>
+        <div class="card">
+          <strong>Emily Chen</strong><br />
+          BSc Biology, specialised in Science and exam prep.<br />
+          <small>Student rating: 4.95/5</small>
+        </div>
+      </div>
+    </section>
 
-  <section id="booking">
-    <h2>Booking & Scheduling</h2>
-    <div class="card">Integrated calendar for scheduling sessions</div>
-    <div class="card">Automated email/SMS reminders</div>
-    <div class="card">Secure payment gateway</div>
-  </section>
+    <section id="booking" role="region" aria-labelledby="booking-title">
+      <h2 id="booking-title">Booking & Scheduling</h2>
+      <div class="card">
+        Easy-to-use online calendar to book your sessions at your convenience.
+      </div>
+      <div class="card">
+        Automated email and SMS reminders so you never miss a session.
+      </div>
+      <div class="card">
+        Secure payment gateway supporting multiple payment options.
+      </div>
+    </section>
 
-  <section id="platform">
-    <h2>Online Tutoring Platform</h2>
-    <div class="card">Live video sessions with Zoom or Google Meet</div>
-    <div class="card">Interactive whiteboards and file sharing</div>
-    <div class="card">In-platform messaging and session history</div>
-  </section>
+    <section id="platform" role="region" aria-labelledby="platform-title">
+      <h2 id="platform-title">Online Tutoring Platform</h2>
+      <div class="card">
+        Live interactive video sessions powered by Zoom or Google Meet.
+      </div>
+      <div class="card">
+        Collaborative whiteboards and screen sharing for effective learning.
+      </div>
+      <div class="card">
+        Built-in chat and file sharing to keep communication seamless.
+      </div>
+    </section>
 
-  <section id="dashboard">
-    <h2>Student Dashboard</h2>
-    <div class="card">Track learning progress, view upcoming & past sessions</div>
-    <div class="card">Download notes and resources</div>
-  </section>
+    <section id="dashboard" role="region" aria-labelledby="dashboard-title">
+      <h2 id="dashboard-title">Student Dashboard</h2>
+      <div class="card">
+        Track your upcoming and past sessions at a glance.
+      </div>
+      <div class="card">
+        Access downloadable notes and personalized resources from your tutors.
+      </div>
+    </section>
+  </main>
 
+  <footer role="contentinfo">
+    &copy; 2025 abc.dds Tutoring. All rights reserved.
+  </footer>
 </body>
 </html>
-"""
-
-html_template[:1000]  # Show a preview of the HTML (first 1000 characters)
-

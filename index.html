@@ -1,3 +1,14 @@
+# Re-defining the color scheme after reset
+color_scheme = {
+    "background": "#c9e4ca",     # light mint
+    "primary": "#3d2c2e",        # deep maroon
+    "accent": "#55828b",         # steel blue
+    "highlight": "#3b6064",      # slate
+    "text": "#364958"            # dark grey-blue
+}
+
+# Generate base HTML for the tutoring website structure
+html_template = f"""
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,171 +17,50 @@
   <title>abc.dds Tutoring</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --light-bg: #c9e4ca;
-      --light-text: #3d2c2e;
-      --light-accent: #55828b;
-      --light-card: #3b6064;
-      --light-border: #364958;
-
-      --dark-bg: #0f172a;
-      --dark-card: #1e293b;
-      --dark-highlight: #334155;
-      --dark-text: #e2e8f0;
-      --dark-accent: #3b82f6;
-      --dark-border: #475569;
-    }
-
-    body {
-      font-family: 'Inter', sans-serif;
+    :root {{
+      --bg: {color_scheme['background']};
+      --primary: {color_scheme['primary']};
+      --accent: {color_scheme['accent']};
+      --highlight: {color_scheme['highlight']};
+      --text: {color_scheme['text']};
+    }}
+    body {{
       margin: 0;
-      background: var(--light-bg);
-      color: var(--light-text);
-      transition: all 0.3s ease;
-    }
-
-    body.dark {
-      background: var(--dark-bg);
-      color: var(--dark-text);
-    }
-
-    header {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }}
+    header, section {{
       padding: 4rem 2rem;
-      text-align: center;
-      background: var(--light-card);
+    }}
+    header {{
+      background: var(--primary);
       color: white;
-    }
-
-    body.dark header {
-      background: var(--dark-card);
-    }
-
-    nav {
+      text-align: center;
+    }}
+    h1, h2 {{
+      color: var(--primary);
+    }}
+    nav {{
+      background: var(--accent);
+      padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1rem 2rem;
-      background: var(--light-border);
       color: white;
-    }
-
-    body.dark nav {
-      background: var(--dark-highlight);
-    }
-
-    nav a {
-      margin: 0 1rem;
+    }}
+    nav a {{
+      color: white;
       text-decoration: none;
-      color: white;
-      font-weight: bold;
-    }
-
-    .btn-toggle {
-      cursor: pointer;
-      padding: 0.5rem 1rem;
-      background: var(--light-accent);
-      color: white;
-      border: none;
-      border-radius: 5px;
-    }
-
-    body.dark .btn-toggle {
-      background: var(--dark-accent);
-    }
-
-    section {
-      padding: 4rem 2rem;
-      max-width: 1200px;
-      margin: auto;
-    }
-
-    h2 {
-      font-size: 2rem;
-      margin-bottom: 2rem;
-    }
-
-    .card, .faq-item {
+      margin-left: 1rem;
+    }}
+    .card {{
       background: white;
-      padding: 1.5rem;
-      margin-bottom: 1rem;
-      border-left: 6px solid var(--light-accent);
-      border-radius: 8px;
-    }
-
-    body.dark .card, body.dark .faq-item {
-      background: var(--dark-card);
-      border-left-color: var(--dark-accent);
-    }
-
-    .testimonials {
-      display: flex;
-      overflow-x: auto;
-      gap: 1rem;
-    }
-
-    .testimonial {
-      min-width: 300px;
-      background: var(--light-card);
-      color: white;
+      border-left: 5px solid var(--accent);
       padding: 1rem;
+      margin-bottom: 1rem;
       border-radius: 8px;
-    }
-
-    body.dark .testimonial {
-      background: var(--dark-highlight);
-      color: var(--dark-text);
-    }
-
-    .faq-item summary {
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .pricing-table {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .pricing-plan {
-      flex: 1;
-      min-width: 250px;
-      padding: 2rem;
-      background: var(--light-card);
-      color: white;
-      border-radius: 10px;
-    }
-
-    body.dark .pricing-plan {
-      background: var(--dark-highlight);
-    }
-
-    footer {
-      text-align: center;
-      padding: 2rem;
-      background: var(--light-border);
-      color: white;
-    }
-
-    body.dark footer {
-      background: var(--dark-border);
-    }
-
-    /* Calendar Placeholder */
-    .calendar {
-      height: 300px;
-      background: #ccc;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 10px;
-      font-size: 1.2rem;
-    }
-
-    body.dark .calendar {
-      background: #1e293b;
-      color: #e2e8f0;
-    }
+    }}
   </style>
 </head>
 <body>
@@ -178,77 +68,63 @@
   <nav>
     <div><strong>abc.dds</strong></div>
     <div>
+      <a href="#home">Home</a>
       <a href="#about">About</a>
-      <a href="#testimonials">Testimonials</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#faq">FAQ</a>
-      <a href="#calendar">Booking</a>
+      <a href="#subjects">Courses</a>
+      <a href="#tutors">Tutors</a>
+      <a href="#booking">Booking</a>
+      <a href="#platform">Platform</a>
+      <a href="#dashboard">Dashboard</a>
     </div>
-    <button class="btn-toggle" onclick="toggleDarkMode()">Toggle Dark Mode</button>
   </nav>
 
-  <header>
-    <h1>Personalised Tutoring That Works</h1>
-    <p>Supporting students from KS1 to GCSE with expert guidance and encouragement.</p>
+  <header id="home">
+    <h1>Unlock Your Potential</h1>
+    <p>Expert tutoring tailored to your success. Book a session today!</p>
   </header>
 
   <section id="about">
     <h2>About Us</h2>
-    <div class="card">
-      <p>abc.dds was founded to empower learners of all abilities. From foundational literacy to GCSE science, our goal is to make learning enjoyable, structured, and tailored. We blend academic excellence with real empathy — every lesson is built around the student.</p>
-    </div>
+    <div class="card">Our mission is to provide world-class tutoring that inspires confidence and academic achievement.</div>
+    <div class="card">Our tutors are experienced, qualified professionals dedicated to student success.</div>
+    <div class="card">Founded by educators, abc.dds focuses on personalised, empathetic, and engaging learning.</div>
   </section>
 
-  <section id="testimonials">
-    <h2>What Parents Say</h2>
-    <div class="testimonials">
-      <div class="testimonial">"My daughter went from a 4 to a 7 in just one term. Incredible!" – A. Patel</div>
-      <div class="testimonial">"abc.dds made maths make sense again for my son. He actually looks forward to it!" – J. Thomas</div>
-      <div class="testimonial">"Warm, flexible and professional. Highly recommend." – S. Ahmed</div>
-    </div>
+  <section id="subjects">
+    <h2>Subjects & Courses</h2>
+    <div class="card">Math, Science, English, Languages, History, Geography</div>
+    <div class="card">Test Prep: 11+, GCSE, A-level, SAT, ACT, GRE</div>
+    <div class="card">Skill-based: Programming, Public Speaking, Writing</div>
   </section>
 
-  <section id="pricing">
-    <h2>Pricing</h2>
-    <div class="pricing-table">
-      <div class="pricing-plan">
-        <h3>Primary</h3>
-        <p>£25/hour</p>
-        <p>Core skills in maths & English, fun learning environment</p>
-      </div>
-      <div class="pricing-plan">
-        <h3>Secondary</h3>
-        <p>£30/hour</p>
-        <p>KS3 & GCSE support in English, maths, science and more</p>
-      </div>
-      <div class="pricing-plan">
-        <h3>11+ & Entrance</h3>
-        <p>£35/hour</p>
-        <p>Targeted prep, verbal reasoning, mock interviews</p>
-      </div>
-    </div>
+  <section id="tutors">
+    <h2>Meet Our Tutors</h2>
+    <div class="card">Tutor profiles, qualifications, student ratings, and availability</div>
   </section>
 
-  <section id="faq">
-    <h2>FAQs</h2>
-    <details class="faq-item"><summary>Do you offer online lessons?</summary><p>Yes! We teach via Zoom with shared whiteboards and interactive tools.</p></details>
-    <details class="faq-item"><summary>Can I book a trial?</summary><p>Absolutely — the first session is always free.</p></details>
-    <details class="faq-item"><summary>Are your tutors qualified?</summary><p>Yes, all are experienced and DBS-checked educators.</p></details>
+  <section id="booking">
+    <h2>Booking & Scheduling</h2>
+    <div class="card">Integrated calendar for scheduling sessions</div>
+    <div class="card">Automated email/SMS reminders</div>
+    <div class="card">Secure payment gateway</div>
   </section>
 
-  <section id="calendar">
-    <h2>Booking Calendar</h2>
-    <div class="calendar">[ Booking Calendar Integration Placeholder ]</div>
+  <section id="platform">
+    <h2>Online Tutoring Platform</h2>
+    <div class="card">Live video sessions with Zoom or Google Meet</div>
+    <div class="card">Interactive whiteboards and file sharing</div>
+    <div class="card">In-platform messaging and session history</div>
   </section>
 
-  <footer>
-    &copy; 2025 abc.dds Tutoring | Email: hello@abcdds.co.uk | Phone: 01234 567890
-  </footer>
+  <section id="dashboard">
+    <h2>Student Dashboard</h2>
+    <div class="card">Track learning progress, view upcoming & past sessions</div>
+    <div class="card">Download notes and resources</div>
+  </section>
 
-  <script>
-    function toggleDarkMode() {
-      document.body.classList.toggle("dark");
-    }
-  </script>
 </body>
 </html>
+"""
+
+html_template[:1000]  # Show a preview of the HTML (first 1000 characters)
+
